@@ -222,6 +222,10 @@ fn build_spidermonkey(build_dir: &Path) {
         cxxflags.push(String::from("-stdlib=libc++"));
     }
 
+    if cfg!(feature="shared_memory") {
+        cxxflags.push("-DENABLE_SHARED_MEMORY=1".to_owned())
+    }
+
     let base_cxxflags = env::var("CXXFLAGS").unwrap_or_default();
     let mut cxxflags = cxxflags.join(" ");
     cxxflags.push_str(&base_cxxflags);
