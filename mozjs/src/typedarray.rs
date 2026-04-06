@@ -300,7 +300,6 @@ macro_rules! typed_array_element {
                 let mut shared = false;
                 let mut data = ptr::null_mut();
                 $length_and_data(obj, &mut len, &mut shared, &mut data);
-                assert!(!shared);
                 std::ptr::slice_from_raw_parts_mut(data, len)
             }
         }
@@ -322,7 +321,6 @@ macro_rules! typed_array_element {
             unsafe fn get_data(obj: *mut JSObject) -> *mut Self::Element {
                 let mut shared = false;
                 let data = $get_data(obj, &mut shared, ptr::null_mut());
-                assert!(!shared);
                 data
             }
         }
